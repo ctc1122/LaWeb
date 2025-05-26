@@ -19,6 +19,12 @@
     <div class="scroll-dot" onclick="scrollToPage(2)" title="Arquitectura"></div>
   </div>
 
+  <!-- Indicador de navegación bloqueada -->
+  <div class="navigation-blocked" id="navigationBlocked">
+    Navegación bloqueada<br>
+    <small>Cierra el video para continuar</small>
+  </div>
+
   <!-- Navegación entre páginas -->
   <div class="page-nav">
     <button class="page-nav-btn active" onclick="scrollToPage(0)">Inicio</button>
@@ -29,7 +35,7 @@
   <!-- PÁGINA 1: Hero Section -->
   <section class="page-section hero-page" id="page-0">
     <div class="container px-4 md:px-12">
-      <div class="text-center">
+      <div class="hero-content text-center">
         <div class="fade-in-up inline-block px-6 py-2 rounded-full bg-white border border-gray-300 text-sm font-medium mb-8">
           <span class="text-gray-600">Trabajo Final de Grado</span>
         </div>
@@ -42,8 +48,8 @@
           Optimiza procesos, mejora la atención y digitaliza tu práctica veterinaria.
         </p>
         
-        <!-- Botón Descubre la App -->
-        <div class="fade-in-up mb-8">
+        <!-- Controles del Video -->
+        <div class="video-controls fade-in-up mb-8">
           <button class="discover-btn" onclick="toggleVideo()">
             <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
@@ -56,21 +62,19 @@
 
     <!-- Video Section -->
     <div class="video-section" id="videoSection">
-      <div class="container px-4 md:px-12">
-        <div class="video-container">
-          <iframe 
-            class="video-iframe" 
-            id="videoIframe"
-            src="" 
-            title="ChichaVet Demo"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
-          <div class="video-overlay" id="videoOverlay">
-            <button class="video-close-btn" onclick="closeVideo()">
-              Cerrar Video
-            </button>
-          </div>
+      <div class="video-container">
+        <iframe 
+          class="video-iframe" 
+          id="videoIframe"
+          src="" 
+          title="ChichaVet Demo"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+        <div class="video-overlay" id="videoOverlay">
+          <button class="video-close-btn" onclick="closeVideo()">
+            Cerrar Video
+          </button>
         </div>
       </div>
     </div>
@@ -265,7 +269,7 @@
           <h3 class="text-xl font-bold mb-3">Análisis y Reportes</h3>
           <p class="text-gray-600 mb-4">Dashboard con métricas, estadísticas y reportes de rendimiento.</p>
           <div class="diagram-preview w-full h-32 bg-gray-100 rounded-lg mb-4 overflow-hidden">
-            <img src="./diagramas/analisis-reportes.png" alt="Diagrama de Análisis y Reportes" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+            <img src="./res/diagramas/Diagrama_E-R.png" alt="Diagrama de Análisis y Reportes" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
           </div>
         </div>
         
@@ -304,8 +308,15 @@
     let currentPage = 0;
     const totalPages = 3;
 
-    // Función para scroll a página específica
+    // Función para scroll a página específica con feedback
     function scrollToPage(pageIndex) {
+      // Bloquear navegación si el video está reproduciéndose
+      if (videoPlaying) {
+        // Mostrar feedback visual
+        showNavigationBlockedFeedback();
+        return;
+      }
+      
       const page = document.getElementById(`page-${pageIndex}`);
       if (page) {
         page.scrollIntoView({ 
@@ -339,7 +350,17 @@
 
     // Detectar scroll y actualizar indicadores
     let isScrolling = false;
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', (e) => {
+      // Bloquear completamente el scroll si el video está reproduciéndose
+      if (videoPlaying) {
+        e.preventDefault();
+        e.stopPropagation();
+        // Mantener la posición actual en la primera página
+        window.scrollTo(0, document.getElementById('page-0').offsetTop);
+        showNavigationBlockedFeedback();
+        return false;
+      }
+      
       if (isScrolling) return;
       
       const pages = document.querySelectorAll('.page-section');
@@ -364,6 +385,14 @@
     // Control de scroll con rueda del mouse
     let scrollTimeout;
     window.addEventListener('wheel', (e) => {
+      // Bloquear completamente el scroll si el video está reproduciéndose
+      if (videoPlaying) {
+        e.preventDefault();
+        e.stopPropagation();
+        showNavigationBlockedFeedback();
+        return false;
+      }
+      
       e.preventDefault();
       
       clearTimeout(scrollTimeout);
@@ -378,8 +407,28 @@
       }, 50);
     }, { passive: false });
 
+    // Bloquear scroll táctil en dispositivos móviles
+    window.addEventListener('touchmove', (e) => {
+      if (videoPlaying) {
+        e.preventDefault();
+        e.stopPropagation();
+        showNavigationBlockedFeedback();
+        return false;
+      }
+    }, { passive: false });
+
     // Control con teclado
     document.addEventListener('keydown', (e) => {
+      // Si el video está reproduciéndose, solo permitir Escape para cerrarlo
+      if (videoPlaying) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          closeVideo();
+        }
+        return; // No permitir otros controles de teclado mientras el video está activo
+      }
+      
+      // Controles normales de navegación
       switch(e.key) {
         case 'ArrowDown':
         case 'PageDown':
@@ -412,12 +461,68 @@
       firstPage.classList.add('in-view');
     });
 
+    // Función para habilitar/deshabilitar navegación
+    function toggleNavigation(disabled) {
+      const scrollIndicator = document.querySelector('.scroll-indicator');
+      const pageNav = document.querySelector('.page-nav');
+      const navigationBlocked = document.getElementById('navigationBlocked');
+      
+      if (disabled) {
+        scrollIndicator.classList.add('disabled');
+        pageNav.classList.add('disabled');
+        navigationBlocked.classList.add('show');
+        // Bloquear scroll del body
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+        // Forzar scroll a la primera página
+        forceScrollToFirstPage();
+      } else {
+        scrollIndicator.classList.remove('disabled');
+        pageNav.classList.remove('disabled');
+        navigationBlocked.classList.remove('show');
+        // Restaurar scroll del body
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+      }
+    }
+
+    // Forzar scroll a la primera página
+    function forceScrollToFirstPage() {
+      const firstPage = document.getElementById('page-0');
+      if (firstPage) {
+        window.scrollTo({
+          top: firstPage.offsetTop,
+          behavior: 'instant'
+        });
+        currentPage = 0;
+        updateActiveIndicators(0);
+      }
+    }
+
+    // Monitorear intentos de scroll cuando el video está activo
+    let scrollMonitor;
+    function startScrollMonitoring() {
+      scrollMonitor = setInterval(() => {
+        if (videoPlaying) {
+          forceScrollToFirstPage();
+        }
+      }, 100);
+    }
+
+    function stopScrollMonitoring() {
+      if (scrollMonitor) {
+        clearInterval(scrollMonitor);
+        scrollMonitor = null;
+      }
+    }
+
     // Funciones existentes del video
     function toggleVideo() {
       const videoSection = document.getElementById('videoSection');
       const videoIframe = document.getElementById('videoIframe');
       const discoverBtn = document.querySelector('.discover-btn');
       const discoverText = document.getElementById('discoverText');
+      const heroPage = document.getElementById('page-0');
       
       if (!videoPlaying) {
         discoverBtn.classList.add('loading');
@@ -427,10 +532,19 @@
         videoIframe.src = videoUrl;
         
         setTimeout(() => {
+          // Activar modo video y deshabilitar navegación
+          heroPage.classList.add('video-active');
           videoSection.classList.add('expanded');
+          discoverBtn.classList.add('video-mode');
+          discoverBtn.classList.remove('loading');
+          discoverText.textContent = 'Cerrar Video';
           videoPlaying = true;
-          discoverBtn.style.display = 'none';
           
+          // Deshabilitar navegación y iniciar monitoreo
+          toggleNavigation(true);
+          startScrollMonitoring();
+          
+          // Auto-cerrar después de 3 minutos
           videoTimer = setTimeout(() => {
             closeVideo();
           }, 180000);
@@ -446,14 +560,20 @@
       const videoIframe = document.getElementById('videoIframe');
       const discoverBtn = document.querySelector('.discover-btn');
       const discoverText = document.getElementById('discoverText');
+      const heroPage = document.getElementById('page-0');
       
+      // Desactivar modo video y habilitar navegación
+      heroPage.classList.remove('video-active');
       videoSection.classList.remove('expanded');
+      discoverBtn.classList.remove('video-mode');
+      
+      // Habilitar navegación y detener monitoreo
+      toggleNavigation(false);
+      stopScrollMonitoring();
       
       setTimeout(() => {
         videoIframe.src = '';
         videoPlaying = false;
-        discoverBtn.style.display = 'inline-flex';
-        discoverBtn.classList.remove('loading');
         discoverText.textContent = 'Descubre la App';
         
         if (videoTimer) {
@@ -496,6 +616,18 @@
         }
       }
     });
+
+    // Mostrar feedback cuando se intenta navegar con video activo
+    function showNavigationBlockedFeedback() {
+      const navigationBlocked = document.getElementById('navigationBlocked');
+      navigationBlocked.style.transform = 'translateY(-50%) scale(1.1)';
+      navigationBlocked.style.background = 'rgba(255, 100, 100, 0.95)';
+      
+      setTimeout(() => {
+        navigationBlocked.style.transform = 'translateY(-50%) scale(1)';
+        navigationBlocked.style.background = 'rgba(255, 255, 255, 0.95)';
+      }, 200);
+    }
   </script>
 </body>
 </html>
