@@ -127,6 +127,11 @@
       <div class="grid grid-3 grid-pattern p-8">
         <!-- Diagrama 1: Gestión de Pacientes -->
         <div class="diagram-card card-gradient p-8 rounded-2xl" onclick="expandDiagram(this, 'pacientes')">
+          <button class="diagram-close-btn" onclick="event.stopPropagation(); closeDiagram(this.parentElement)">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
           <div class="w-12 h-12 rounded-lg gradient-bg flex items-center justify-center mb-6">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 icon-gradient-1" viewBox="0 0 24 24" stroke="none">
               <defs>
@@ -148,6 +153,11 @@
         
         <!-- Diagrama 2: Citas y Agenda -->
         <div class="diagram-card card-gradient p-8 rounded-2xl" onclick="expandDiagram(this, 'citas')">
+          <button class="diagram-close-btn" onclick="event.stopPropagation(); closeDiagram(this.parentElement)">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
           <div class="w-12 h-12 rounded-lg gradient-bg flex items-center justify-center mb-6">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 icon-gradient-2" viewBox="0 0 24 24" stroke="none">
               <defs>
@@ -169,6 +179,11 @@
         
         <!-- Diagrama 3: Inventario -->
         <div class="diagram-card card-gradient p-8 rounded-2xl" onclick="expandDiagram(this, 'inventario')">
+          <button class="diagram-close-btn" onclick="event.stopPropagation(); closeDiagram(this.parentElement)">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
           <div class="w-12 h-12 rounded-lg gradient-bg flex items-center justify-center mb-6">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 icon-gradient-3" viewBox="0 0 24 24" stroke="none">
               <defs>
@@ -190,6 +205,11 @@
         
         <!-- Diagrama 4: Facturación -->
         <div class="diagram-card card-gradient p-8 rounded-2xl" onclick="expandDiagram(this, 'facturacion')">
+          <button class="diagram-close-btn" onclick="event.stopPropagation(); closeDiagram(this.parentElement)">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
           <div class="w-12 h-12 rounded-lg gradient-bg flex items-center justify-center mb-6">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 icon-gradient-4" viewBox="0 0 24 24" stroke="none">
               <defs>
@@ -211,6 +231,11 @@
         
         <!-- Diagrama 5: Reportes -->
         <div class="diagram-card card-gradient p-8 rounded-2xl" onclick="expandDiagram(this, 'reportes')">
+          <button class="diagram-close-btn" onclick="event.stopPropagation(); closeDiagram(this.parentElement)">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
           <div class="w-12 h-12 rounded-lg gradient-bg flex items-center justify-center mb-6">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 icon-gradient-5" viewBox="0 0 24 24" stroke="none">
               <defs>
@@ -232,6 +257,11 @@
         
         <!-- Diagrama 6: Base de Datos -->
         <div class="diagram-card card-gradient p-8 rounded-2xl" onclick="expandDiagram(this, 'database')">
+          <button class="diagram-close-btn" onclick="event.stopPropagation(); closeDiagram(this.parentElement)">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
           <div class="w-12 h-12 rounded-lg gradient-bg flex items-center justify-center mb-6">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 icon-gradient-6" viewBox="0 0 24 24" stroke="none">
               <defs>
@@ -323,17 +353,21 @@
       
       // Cerrar al hacer click en overlay
       overlay.onclick = function() {
-        overlay.classList.remove('active');
-        element.classList.remove('expanded');
+        closeDiagram(element);
       }
       
       // Cerrar con ESC
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-          overlay.classList.remove('active');
-          element.classList.remove('expanded');
+          closeDiagram(element);
         }
       });
+    }
+
+    function closeDiagram(element) {
+      const overlay = document.getElementById('diagramOverlay');
+      overlay.classList.remove('active');
+      element.classList.remove('expanded');
     }
 
     // Detectar cuando el video termina (para YouTube)
