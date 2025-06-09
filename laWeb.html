@@ -9,14 +9,12 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Overlay para diagramas expandidos -->
-  <div class="diagram-overlay" id="diagramOverlay"></div>
-
   <!-- Indicador de scroll lateral -->
   <div class="scroll-indicator">
     <div class="scroll-dot active" onclick="scrollToPage(0)" title="Inicio"></div>
     <div class="scroll-dot" onclick="scrollToPage(1)" title="Desarrolladores"></div>
-    <div class="scroll-dot" onclick="scrollToPage(2)" title="Arquitectura"></div>
+    <div class="scroll-dot" onclick="scrollToPage(2)" title="Presentación"></div>
+    <div class="scroll-dot" onclick="scrollToPage(3)" title="Arquitectura"></div>
   </div>
 
   <!-- Indicador de navegación bloqueada -->
@@ -29,387 +27,421 @@
   <div class="page-nav">
     <button class="page-nav-btn active" onclick="scrollToPage(0)">Inicio</button>
     <button class="page-nav-btn" onclick="scrollToPage(1)">Equipo</button>
-    <button class="page-nav-btn" onclick="scrollToPage(2)">Sistema</button>
+    <button class="page-nav-btn" onclick="scrollToPage(2)">Presentación</button>
+    <button class="page-nav-btn" onclick="scrollToPage(3)">Recursos</button>
   </div>
 
-  <!-- PÁGINA 1: Hero Section -->
-  <section class="page-section hero-page" id="page-0">
-    <div class="container px-4 md:px-12">
-      <div class="hero-content text-center">
-        <div class="fade-in-up inline-block px-6 py-2 rounded-full bg-white border border-gray-300 text-sm font-medium mb-8">
-          <span class="text-gray-600">Trabajo Final de Grado</span>
-        </div>
-        <h1 class="fade-in-up hero-title text-5xl md:text-7xl font-bold mb-8 leading-tight title-font">
-          <span class="gradient-text">ChichaVet</span><br>
-          <span class="hero-subtitle text-4xl md:text-5xl text-gray-600">Sistema de Gestión Veterinaria</span>
-        </h1>
-        <p class="fade-in-up text-xl md:text-2xl text-gray-500 mb-12 max-w-3xl mx-auto">
-          Plataforma integral para la gestión moderna de clínicas veterinarias. 
-          Optimiza procesos, mejora la atención y digitaliza tu práctica veterinaria.
-        </p>
-        
-        <!-- Controles del Video -->
-        <div class="video-controls fade-in-up mb-8">
-          <button class="discover-btn" onclick="toggleVideo()">
-            <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
-            </svg>
-            <span id="discoverText">Descubre la App</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Video Section -->
-    <div class="video-section" id="videoSection">
-      <div class="video-container">
-        <iframe 
-          class="video-iframe" 
-          id="videoIframe"
-          src="" 
-          title="ChichaVet Demo"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowfullscreen>
-        </iframe>
-        <div class="video-overlay" id="videoOverlay">
-          <button class="video-close-btn" onclick="closeVideo()">
-            Cerrar Video
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PÁGINA 2: Carrusel de Equipo y Motivación -->
-  <section class="page-section carousel-page" id="page-1">
-    <div class="carousel-container">
-      <!-- Flechas de navegación del carrusel -->
-      <button class="carousel-arrow carousel-arrow-left" onclick="changeCarouselSlide(-1)">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-      
-      <button class="carousel-arrow carousel-arrow-right" onclick="changeCarouselSlide(1)">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-
-      <!-- Indicadores del carrusel -->
-      <div class="carousel-indicators">
-        <div class="carousel-dot active" onclick="goToCarouselSlide(0)"></div>
-        <div class="carousel-dot" onclick="goToCarouselSlide(1)"></div>
-      </div>
-
-      <!-- Slides del carrusel -->
-      <div class="carousel-slides">
-        <!-- Slide 1: Desarrollado por -->
-        <div class="carousel-slide active creators-slide">
-          <div class="container creators-container px-4 md:px-12">
-            <div class="text-center mb-16">
-              <h2 class="fade-in-up section-title text-3xl md:text-4xl font-bold mb-4 title-font text-gray-800">
-                Desarrollado por
-              </h2>
-              <p class="fade-in-up text-lg text-gray-600">Estudiantes de Ingeniería Informática</p>
+  <!-- Container principal con efecto sticky -->
+  <div class="relative">
+    <!-- PÁGINA 1: Hero Section -->
+    <section class="sticky top-0 h-screen page-section hero-page" id="page-0">
+      <div class="container px-4 md:px-12 h-full flex items-center justify-center">
+        <div class="hero-content text-center">
+          <div class="fade-in-up inline-block px-6 py-2 rounded-full bg-white border border-gray-300 text-sm font-medium mb-8">
+            <span class="text-gray-600">Trabajo Final de Grado</span>
+          </div>
+          <h1 class="fade-in-up hero-title text-5xl md:text-7xl font-bold mb-8 leading-tight title-font">
+            <div style="display: flex; justify-content: center;">
+              <span class="gradient-text typing-effect">ChichaVet</span>
             </div>
-            
-            <div class="grid grid-2 max-w-4xl mx-auto">
-              <!-- Cristopher Torres Calderón -->
-              <div class="fade-in-left creator-card">
-                <div class="creator-card-inner">
-                  <div class="creator-avatar bg-gradient-to-br from-gray-300 to-gray-500" data-fallback="C1">
-                    <img src="./res/creadores/C1.JPG" alt="Cristopher Torres Calderón" class="creator-image" loading="eager" decoding="sync">
-                  </div>
-                  <div class="creator-info">
-                    <h3 class="creator-name">Cristopher Torres Calderón</h3>
-                    <p class="creator-role">Backend & Database</p>
-                    <ul class="creator-skills">
-                      <li>• Arquitectura del sistema</li>
-                      <li>• Base de datos</li>
-                      <li>• Desarrollo backend</li>
-                    </ul>
-                    <div class="creator-social">
-                      <a href="https://github.com/creador1" class="social-icon github" target="_blank" rel="noopener">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-                        </svg>
-                      </a>
-                      <a href="mailto:creador1@gmail.com" class="social-icon gmail">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h.91L12 10.09l9.454-6.269h.91c.904 0 1.636.732 1.636 1.636z"/>
-                        </svg>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Jorge Ayaviri Calle -->
-              <div class="fade-in-right creator-card">
-                <div class="creator-card-inner">
-                  <div class="creator-avatar bg-gradient-to-br from-gray-400 to-gray-600" data-fallback="C2">
-                    <img src="./res/creadores/C2.jpeg" alt="Jorge Ayaviri Calle" class="creator-image" loading="eager" decoding="sync">
-                  </div>
-                  <div class="creator-info">
-                    <h3 class="creator-name">Jorge Ayaviri Calle</h3>
-                    <p class="creator-role">Frontend & UX/UI Design</p>
-                    <ul class="creator-skills">
-                      <li>• Diseño de interfaz de usuario</li>
-                      <li>• Experiencia de usuario</li>
-                      <li>• Desarrollo frontend</li>
-                    </ul>
-                    <div class="creator-social">
-                      <a href="https://github.com/creador2" class="social-icon github" target="_blank" rel="noopener">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-                        </svg>
-                      </a>
-                      <a href="mailto:creador2@gmail.com" class="social-icon gmail">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h.91L12 10.09l9.454-6.269h.91c.904 0 1.636.732 1.636 1.636z"/>
-                        </svg>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <br>
+            <span class="hero-subtitle text-4xl md:text-5xl text-gray-600">Sistema de Gestión Veterinaria</span>
+          </h1>
+          <p class="fade-in-up text-xl md:text-2xl text-gray-500 mb-12 max-w-3xl mx-auto">
+            Plataforma integral para la gestión moderna de clínicas veterinarias. 
+            Optimiza procesos, mejora la atención y digitaliza tu práctica veterinaria.
+          </p>
+          
+          <!-- Controles del Video -->
+          <div class="video-controls fade-in-up mb-8">
+            <button class="discover-btn" onclick="toggleVideo()">
+              <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+              </svg>
+              <span id="discoverText">Descubre la App</span>
+            </button>
           </div>
         </div>
+      </div>
 
-        <!-- Slide 2: Nuestra motivación hacia los animales -->
-        <div class="carousel-slide motivation-slide">
-          <div class="motivation-background"></div>
-          <div class="motivation-overlay"></div>
-          <div class="container motivation-container px-4 md:px-12">
-            <div class="text-center motivation-content">
-              <h2 class="fade-in-up section-title text-3xl md:text-5xl font-bold mb-8 title-font text-white">
-                Nuestra <span class="motivation-gradient-text">Motivación</span>
-              </h2>
-              <p class="fade-in-up text-xl md:text-2xl text-white mb-12 max-w-3xl mx-auto leading-relaxed">
-                Hacia los animales que nos inspiran cada día
-              </p>
+      <!-- Video Section -->
+      <div class="video-section" id="videoSection">
+        <div class="video-container">
+          <iframe 
+            class="video-iframe" 
+            id="videoIframe"
+            src="" 
+            title="ChichaVet Demo"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+          <div class="video-overlay" id="videoOverlay">
+            <button class="video-close-btn" onclick="closeVideo()">
+              Cerrar Video
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PÁGINA 2: Carrusel de Equipo y Motivación -->
+    <section class="sticky top-0 h-screen page-section carousel-page" id="page-1">
+      <div class="carousel-container h-full">
+        <!-- Flechas de navegación del carrusel -->
+        <button class="carousel-arrow carousel-arrow-left" onclick="changeCarouselSlide(-1)">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        
+        <button class="carousel-arrow carousel-arrow-right" onclick="changeCarouselSlide(1)">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
+        <!-- Indicadores del carrusel -->
+        <div class="carousel-indicators">
+          <div class="carousel-dot active" onclick="goToCarouselSlide(0)"></div>
+          <div class="carousel-dot" onclick="goToCarouselSlide(1)"></div>
+        </div>
+
+        <!-- Slides del carrusel -->
+        <div class="carousel-slides h-full">
+          <!-- Slide 1: Desarrollado por -->
+          <div class="carousel-slide active creators-slide h-full flex items-center justify-center">
+            <div class="container creators-container px-4 md:px-12">
+              <div class="text-center mb-16">
+                <h2 class="fade-in-up section-title text-3xl md:text-4xl font-bold mb-4 title-font text-gray-800">
+                  Desarrollado por
+                </h2>
+                <p class="fade-in-up text-lg text-gray-600">Estudiantes de Ingeniería Informática</p>
+              </div>
               
-              <div class="motivation-grid fade-in-up">
-                <div class="motivation-card">
-                  <div class="motivation-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                    </svg>
+              <div class="grid grid-2 max-w-4xl mx-auto">
+                <!-- Cristopher Torres Calderón -->
+                <div class="fade-in-left creator-card">
+                  <div class="creator-card-inner">
+                    <div class="creator-avatar bg-gradient-to-br from-gray-300 to-gray-500" data-fallback="C1">
+                      <img src="./res/creadores/C1.JPG" alt="Cristopher Torres Calderón" class="creator-image" loading="eager" decoding="sync">
+                    </div>
+                    <div class="creator-info">
+                      <h3 class="creator-name">Cristopher Torres Calderón</h3>
+                      <p class="creator-role">Backend & Database</p>
+                      <ul class="creator-skills">
+                        <li>• Arquitectura del sistema</li>
+                        <li>• Base de datos</li>
+                        <li>• Desarrollo backend</li>
+                      </ul>
+                      <div class="creator-social">
+                        <a href="https://github.com/creador1" class="social-icon github" target="_blank" rel="noopener">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                          </svg>
+                        </a>
+                        <a href="mailto:creador1@gmail.com" class="social-icon gmail">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h.91L12 10.09l9.454-6.269h.91c.904 0 1.636.732 1.636 1.636z"/>
+                          </svg>
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                  <h3>Amor por los animales</h3>
-                  <p>Cada mascota merece el mejor cuidado y atención veterinaria</p>
                 </div>
-                
-                <div class="motivation-card">
-                  <div class="motivation-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
+
+                <!-- Jorge Ayaviri Calle -->
+                <div class="fade-in-right creator-card">
+                  <div class="creator-card-inner">
+                    <div class="creator-avatar bg-gradient-to-br from-gray-400 to-gray-600" data-fallback="C2">
+                      <img src="./res/creadores/C2.jpeg" alt="Jorge Ayaviri Calle" class="creator-image" loading="eager" decoding="sync">
+                    </div>
+                    <div class="creator-info">
+                      <h3 class="creator-name">Jorge Ayaviri Calle</h3>
+                      <p class="creator-role">Frontend & UX/UI Design</p>
+                      <ul class="creator-skills">
+                        <li>• Diseño de interfaz de usuario</li>
+                        <li>• Experiencia de usuario</li>
+                        <li>• Desarrollo frontend</li>
+                      </ul>
+                      <div class="creator-social">
+                        <a href="https://github.com/creador2" class="social-icon github" target="_blank" rel="noopener">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                          </svg>
+                        </a>
+                        <a href="mailto:creador2@gmail.com" class="social-icon gmail">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h.91L12 10.09l9.454-6.269h.91c.904 0 1.636.732 1.636 1.636z"/>
+                          </svg>
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                  <h3>Tecnología al servicio</h3>
-                  <p>Innovamos para mejorar la calidad de vida de las mascotas</p>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2: Nuestra motivación hacia los animales -->
+          <div class="carousel-slide motivation-slide h-full flex items-center justify-center">
+            <div class="motivation-background"></div>
+            <div class="motivation-overlay"></div>
+            <div class="container motivation-container px-4 md:px-12">
+              <div class="text-center motivation-content">
+                <h2 class="fade-in-up section-title text-3xl md:text-5xl font-bold mb-8 title-font text-white">
+                  Nuestra <span class="motivation-gradient-text">Motivación</span>
+                </h2>
+                <p class="fade-in-up text-xl md:text-2xl text-white mb-12 max-w-3xl mx-auto leading-relaxed">
+                  Hacia los animales que nos inspiran cada día
+                </p>
                 
-                <div class="motivation-card">
-                  <div class="motivation-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                    </svg>
+                <div class="motivation-grid fade-in-up">
+                  <div class="motivation-card">
+                    <div class="motivation-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                      </svg>
+                    </div>
+                    <h3>Amor por los animales</h3>
+                    <p>Cada mascota merece el mejor cuidado y atención veterinaria</p>
                   </div>
-                  <h3>Excelencia veterinaria</h3>
-                  <p>Facilitamos el trabajo de los profesionales veterinarios</p>
+                  
+                  <div class="motivation-card">
+                    <div class="motivation-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                      </svg>
+                    </div>
+                    <h3>Tecnología al servicio</h3>
+                    <p>Innovamos para mejorar la calidad de vida de las mascotas</p>
+                  </div>
+                  
+                  <div class="motivation-card">
+                    <div class="motivation-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                      </svg>
+                    </div>
+                    <h3>Excelencia veterinaria</h3>
+                    <p>Facilitamos el trabajo de los profesionales veterinarios</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- PÁGINA 3: Diagramas de la Aplicación -->
-  <section class="page-section diagrams-page" id="page-2">
-    <div class="container px-4 md:px-12">
-      <div class="text-center mb-12">
-        <h2 class="fade-in-up section-title md:text-4xl font-bold mb-4 title-font text-[40px]">
-          Arquitectura del <span class="gradient-text">Sistema</span>
-        </h2>
-        <p class="fade-in-up text-base text-gray-600 max-w-2xl mx-auto">
-          Explora los diferentes módulos y funcionalidades de ChichaVet. Haz click en cada diagrama para ver más detalles.
-        </p>
+    <!-- PÁGINA 3: Presentación TFC -->
+    <section class="sticky top-0 h-screen page-section presentation-page" id="page-2">
+      <div class="container px-4 md:px-12 h-full flex flex-col justify-center">
+        <div class="text-center mb-8">
+          <h2 class="fade-in-up section-title text-3xl md:text-4xl font-bold mb-4 title-font text-gray-800">
+            Presentación del <span class="gradient-text">Proyecto</span>
+          </h2>
+          <p class="fade-in-up text-lg text-gray-600 max-w-2xl mx-auto">
+            Trabajo Final de Carrera - Sistema de Gestión Veterinaria ChichaVet
+          </p>
+        </div>
+        
+        <div class="fade-in-up flex justify-center items-center h-full max-h-96">
+          <div class="presentation-container bg-white rounded-xl shadow-2xl p-6 max-w-4xl w-full">
+            <iframe 
+              src="https://1drv.ms/p/c/8a7f485fa42cf901/IQQ4TkUKNoGHRb50oo7etzuoAXbdt_bit1-Rfb3243Kf05k" 
+              width="100%" 
+              height="400" 
+              frameborder="0" 
+              scrolling="no"
+              class="rounded-lg">
+            </iframe>
+          </div>
+        </div>
       </div>
+    </section>
+
+    <!-- PÁGINA 4: Recursos Expandibles -->
+    <section class="sticky top-0 h-screen page-section resources-page" id="page-3">
+      <div class="resources-container h-full">
+        <!-- Sección izquierda con información -->
+        <div class="resources-left">
+          <div class="resources-content">
+            <p class="resources-discover">DESCUBRE</p>
+            <h1 class="resources-title">Recursos <br>ChichaVet</h1>
+            <p class="resources-description">
+              Explora nuestra completa colección de recursos veterinarios. 
+              Desde análisis detallados hasta infografías educativas.
+            </p>
+          </div>
+        </div>
+
+        <!-- Sección derecha con carrusel -->
+        <div class="resources-right">
+          <div class="resources-slider">
+            <!-- Slide 1: Análisis y Diagramas -->
+            <div class="resource-slide active" data-type="analysis">
+              <div class="resource-slide-bg analysis-bg"></div>
+              <div class="resource-slide-content">
+                <h3 class="resource-title">ANÁLISIS</h3>
+                <p class="resource-subtitle">Diagramas y arquitectura del sistema completo</p>
+                <button class="resource-explore-btn" onclick="expandResource(this, 'analysis')">EXPLORAR</button>
+              </div>
+            </div>
+
+            <!-- Slide 2: Infografías -->
+            <div class="resource-slide" data-type="infographic">
+              <div class="resource-slide-bg infographic-bg"></div>
+              <div class="resource-slide-content">
+                <h3 class="resource-title">INFOGRAFÍA</h3>
+                <p class="resource-subtitle">Visualizaciones y gráficos del proyecto</p>
+                <button class="resource-explore-btn" onclick="expandResource(this, 'infographic')">EXPLORAR</button>
+              </div>
+            </div>
+
+            <!-- Slide 3: Documentación -->
+            <div class="resource-slide" data-type="documentation">
+              <div class="resource-slide-bg documentation-bg"></div>
+              <div class="resource-slide-content">
+                <h3 class="resource-title">DOCUMENTACIÓN</h3>
+                <p class="resource-subtitle">Manuales y guías técnicas</p>
+                <button class="resource-explore-btn" onclick="expandResource(this, 'documentation')">EXPLORAR</button>
+              </div>
+            </div>
+
+            <!-- Slide 4: Prototipo -->
+            <div class="resource-slide" data-type="prototype">
+              <div class="resource-slide-bg prototype-bg"></div>
+              <div class="resource-slide-content">
+                <h3 class="resource-title">PROTOTIPO</h3>
+                <p class="resource-subtitle">Demo interactivo de la aplicación</p>
+                <button class="resource-explore-btn" onclick="expandResource(this, 'prototype')">EXPLORAR</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Indicadores del slider -->
+          <div class="resources-indicators">
+            <div class="resource-dot active" onclick="goToResourceSlide(0)"></div>
+            <div class="resource-dot" onclick="goToResourceSlide(1)"></div>
+            <div class="resource-dot" onclick="goToResourceSlide(2)"></div>
+            <div class="resource-dot" onclick="goToResourceSlide(3)"></div>
+          </div>
+
+          <!-- Controles del slider -->
+          <div class="resources-nav">
+            <button class="resource-nav-btn prev" onclick="changeResourceSlide(-1)">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button class="resource-nav-btn next" onclick="changeResourceSlide(1)">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Sección de Análisis Simple -->
+  <div class="analysis-section hidden" id="analysisSection">
+    <button class="back-btn" onclick="closeAnalysis()">← Volver</button>
+    
+    <div class="analysis-content">
+      <h1>Análisis del Sistema ChichaVet</h1>
+      <p>Diagramas y arquitectura técnica del proyecto</p>
       
-      <div class="fade-in-up grid grid-3 grid-pattern p-6">
-        <!-- Diagrama 1: Gestión de Pacientes -->
-        <div class="diagram-card card-gradient p-6 rounded-xl" onclick="expandDiagram(this, 'pacientes')">
-          <button class="diagram-close-btn" onclick="event.stopPropagation(); closeDiagram(this.parentElement)">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          <div class="w-10 h-10 rounded-lg gradient-bg flex items-center justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 icon-gradient-1" viewBox="0 0 24 24" stroke="none">
-              <defs>
-                <linearGradient id="icon-gradient-1" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#111" />
-                  <stop offset="60%" stop-color="#444" />
-                  <stop offset="100%" stop-color="#f3f4f6" />
-                </linearGradient>
-              </defs>
-              <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 7V9C15 10.1 14.1 11 13 11V22H11V16H9V22H7V11C5.9 11 5 10.1 5 9V7H3V9C3 11.2 4.8 13 7 13V22H17V13C19.2 13 21 11.2 21 9Z" />
-            </svg>
-          </div>
-          <h3 class="text-lg font-bold mb-2">Gestión de Pacientes</h3>
-          <p class="text-gray-600 mb-3 text-sm">Sistema completo para el registro, historial médico y seguimiento de mascotas.</p>
-          <div class="diagram-preview w-full h-24 bg-gray-100 rounded-lg overflow-hidden">
-            <img src="./diagramas/gestion-pacientes.png" alt="Diagrama de Gestión de Pacientes" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
-          </div>
+      <div class="diagrams-simple-grid">
+        <div class="diagram-simple-card" onclick="showDiagramOverlay('./res/diagramas/gestion-pacientes.png', 'Gestión de Pacientes')">
+          <img src="./res/diagramas/gestion-pacientes.png" alt="Gestión de Pacientes">
+          <h3>Gestión de Pacientes</h3>
+          <p>Sistema completo de registro y seguimiento</p>
         </div>
         
-        <!-- Diagrama 2: Citas y Agenda -->
-        <div class="diagram-card card-gradient p-6 rounded-xl" onclick="expandDiagram(this, 'citas')">
-          <button class="diagram-close-btn" onclick="event.stopPropagation(); closeDiagram(this.parentElement)">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          <div class="w-10 h-10 rounded-lg gradient-bg flex items-center justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 icon-gradient-2" viewBox="0 0 24 24" stroke="none">
-              <defs>
-                <linearGradient id="icon-gradient-2" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#111" />
-                  <stop offset="60%" stop-color="#444" />
-                  <stop offset="100%" stop-color="#f3f4f6" />
-                </linearGradient>
-              </defs>
-              <path d="M19 3H18V1H16V3H8V1H6V3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V8H19V19ZM7 10H12V15H7V10Z" />
-            </svg>
-          </div>
-          <h3 class="text-lg font-bold mb-2">Sistema de Citas</h3>
-          <p class="text-gray-600 mb-3 text-sm">Calendario inteligente para la gestión de citas y agenda veterinaria.</p>
-          <div class="diagram-preview w-full h-24 bg-gray-100 rounded-lg overflow-hidden">
-            <img src="./diagramas/sistema-citas.png" alt="Diagrama del Sistema de Citas" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
-          </div>
+        <div class="diagram-simple-card" onclick="showDiagramOverlay('./res/diagramas/sistema-citas.png', 'Sistema de Citas')">
+          <img src="./res/diagramas/sistema-citas.png" alt="Sistema de Citas">
+          <h3>Sistema de Citas</h3>
+          <p>Gestión y programación de citas veterinarias</p>
         </div>
         
-        <!-- Diagrama 3: Inventario -->
-        <div class="diagram-card card-gradient p-6 rounded-xl" onclick="expandDiagram(this, 'inventario')">
-          <button class="diagram-close-btn" onclick="event.stopPropagation(); closeDiagram(this.parentElement)">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          <div class="w-10 h-10 rounded-lg gradient-bg flex items-center justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 icon-gradient-3" viewBox="0 0 24 24" stroke="none">
-              <defs>
-                <linearGradient id="icon-gradient-3" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#111" />
-                  <stop offset="60%" stop-color="#444" />
-                  <stop offset="100%" stop-color="#f3f4f6" />
-                </linearGradient>
-              </defs>
-              <path d="M12 2L2 7V10C2 16 6 20.9 12 22C18 20.9 22 16 22 10V7L12 2ZM12 4.3L19 8V10C19 15.1 16.2 19.1 12 20C7.8 19.1 5 15.1 5 10V8L12 4.3Z" />
-            </svg>
-          </div>
-          <h3 class="text-lg font-bold mb-2">Control de Inventario</h3>
-          <p class="text-gray-600 mb-3 text-sm">Gestión de medicamentos, suministros y control de stock automático.</p>
-          <div class="diagram-preview w-full h-24 bg-gray-100 rounded-lg overflow-hidden">
-            <img src="./diagramas/control-inventario.png" alt="Diagrama de Control de Inventario" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
-          </div>
+        <div class="diagram-simple-card" onclick="showDiagramOverlay('./res/diagramas/control-inventario.png', 'Control de Inventario')">
+          <img src="./res/diagramas/control-inventario.png" alt="Control de Inventario">
+          <h3>Control de Inventario</h3>
+          <p>Administración de medicamentos y suministros</p>
         </div>
         
-        <!-- Diagrama 4: Facturación -->
-        <div class="diagram-card card-gradient p-6 rounded-xl" onclick="expandDiagram(this, 'facturacion')">
-          <button class="diagram-close-btn" onclick="event.stopPropagation(); closeDiagram(this.parentElement)">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          <div class="w-10 h-10 rounded-lg gradient-bg flex items-center justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 icon-gradient-4" viewBox="0 0 24 24" stroke="none">
-              <defs>
-                <linearGradient id="icon-gradient-4" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#111" />
-                  <stop offset="60%" stop-color="#444" />
-                  <stop offset="100%" stop-color="#f3f4f6" />
-                </linearGradient>
-              </defs>
-              <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2ZM18 20H6V4H13V9H18V20ZM9 13V19H7V13H9ZM15 11V19H13V11H15ZM11 15V19H9V15H11Z" />
-            </svg>
-          </div>
-          <h3 class="text-lg font-bold mb-2">Sistema de Facturación</h3>
-          <p class="text-gray-600 mb-3 text-sm">Generación automática de facturas y control financiero de la clínica.</p>
-          <div class="diagram-preview w-full h-24 bg-gray-100 rounded-lg overflow-hidden">
-            <img src="./diagramas/sistema-facturacion.png" alt="Diagrama del Sistema de Facturación" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
-          </div>
+        <div class="diagram-simple-card" onclick="showDiagramOverlay('./res/diagramas/sistema-facturacion.png', 'Sistema de Facturación')">
+          <img src="./res/diagramas/sistema-facturacion.png" alt="Sistema de Facturación">
+          <h3>Sistema de Facturación</h3>
+          <p>Generación y gestión de facturas</p>
         </div>
         
-        <!-- Diagrama 5: Reportes -->
-        <div class="diagram-card card-gradient p-6 rounded-xl" onclick="expandDiagram(this, 'reportes')">
-          <button class="diagram-close-btn" onclick="event.stopPropagation(); closeDiagram(this.parentElement)">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          <div class="w-10 h-10 rounded-lg gradient-bg flex items-center justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 icon-gradient-5" viewBox="0 0 24 24" stroke="none">
-              <defs>
-                <linearGradient id="icon-gradient-5" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#111" />
-                  <stop offset="60%" stop-color="#444" />
-                  <stop offset="100%" stop-color="#f3f4f6" />
-                </linearGradient>
-              </defs>
-              <path d="M3 13H5V19H3V13ZM7 9H9V19H7V9ZM11 5H13V19H11V5ZM15 1H17V19H15V1ZM19 9H21V19H19V9Z" />
-            </svg>
-          </div>
-          <h3 class="text-lg font-bold mb-2">Análisis y Reportes</h3>
-          <p class="text-gray-600 mb-3 text-sm">Dashboard con métricas, estadísticas y reportes de rendimiento.</p>
-          <div class="diagram-preview w-full h-24 bg-gray-100 rounded-lg overflow-hidden">
-            <img src="./res/diagramas/Diagrama_E-R.png" alt="Diagrama de Análisis y Reportes" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
-          </div>
+        <div class="diagram-simple-card" onclick="showDiagramOverlay('./res/diagramas/Diagrama_E-R.png', 'Diagrama E-R')">
+          <img src="./res/diagramas/Diagrama_E-R.png" alt="Diagrama E-R">
+          <h3>Diagrama E-R</h3>
+          <p>Estructura y relaciones de la base de datos</p>
         </div>
         
-        <!-- Diagrama 6: Base de Datos -->
-        <div class="diagram-card card-gradient p-6 rounded-xl" onclick="expandDiagram(this, 'database')">
-          <button class="diagram-close-btn" onclick="event.stopPropagation(); closeDiagram(this.parentElement)">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          <div class="w-10 h-10 rounded-lg gradient-bg flex items-center justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 icon-gradient-6" viewBox="0 0 24 24" stroke="none">
-              <defs>
-                <linearGradient id="icon-gradient-6" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#111" />
-                  <stop offset="60%" stop-color="#444" />
-                  <stop offset="100%" stop-color="#f3f4f6" />
-                </linearGradient>
-              </defs>
-              <path d="M12 3C7.58 3 4 4.79 4 7S7.58 11 12 11 20 9.21 20 7 16.42 3 12 3ZM4 9V12C4 14.21 7.58 16 12 16S20 14.21 20 12V9C20 11.21 16.42 13 12 13S4 11.21 4 9ZM4 14V17C4 19.21 7.58 21 12 21S20 19.21 20 17V14C20 16.21 16.42 18 12 18S4 16.21 4 14Z" />
-            </svg>
-          </div>
-          <h3 class="text-lg font-bold mb-2">Arquitectura de Datos</h3>
-          <p class="text-gray-600 mb-3 text-sm">Estructura de base de datos y relaciones entre entidades del sistema.</p>
-          <div class="diagram-preview w-full h-24 bg-gray-100 rounded-lg overflow-hidden">
-            <img src="./diagramas/arquitectura-datos.png" alt="Diagrama de Arquitectura de Datos" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
-          </div>
+        <div class="diagram-simple-card" onclick="showDiagramOverlay('./res/diagramas/arquitectura-datos.png', 'Arquitectura del Sistema')">
+          <img src="./res/diagramas/arquitectura-datos.png" alt="Arquitectura">
+          <h3>Arquitectura del Sistema</h3>
+          <p>Diseño arquitectónico completo</p>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+
+  <!-- Overlay para mostrar diagramas en pantalla completa -->
+  <div class="diagram-fullscreen-overlay hidden" id="diagramFullscreenOverlay" onclick="closeDiagramOverlay()">
+    <div class="diagram-fullscreen-content" onclick="event.stopPropagation()">
+      <button class="diagram-fullscreen-close" onclick="closeDiagramOverlay()">✕</button>
+      <img id="diagramFullscreenImage" src="" alt="">
+      <h3 id="diagramFullscreenTitle"></h3>
+    </div>
+  </div>
 
   <script>
     let videoPlaying = false;
     let videoTimer = null;
     let currentPage = 0;
-    const totalPages = 3;
+    const totalPages = 4;
     
     // Variables del carrusel
     let currentCarouselSlide = 0;
     const totalCarouselSlides = 2;
+
+    // Variables del slider de recursos
+    let currentResourceSlide = 0;
+    const totalResourceSlides = 4;
+
+    // Auto-slider para recursos (opcional)
+    let resourceAutoSlider;
+    
+    function startResourceAutoSlider() {
+      resourceAutoSlider = setInterval(() => {
+        if (currentPage === 3 && !document.querySelector('.resource-slide.expanding')) {
+          changeResourceSlide(1);
+        }
+      }, 5000);
+    }
+    
+    function stopResourceAutoSlider() {
+      if (resourceAutoSlider) {
+        clearInterval(resourceAutoSlider);
+        resourceAutoSlider = null;
+      }
+    }
+    
+    // Iniciar auto-slider cuando se está en la página 4
+    function handlePageChange() {
+      if (currentPage === 3) {
+        startResourceAutoSlider();
+      } else {
+        stopResourceAutoSlider();
+      }
+    }
 
     // Función para scroll a página específica con feedback
     function scrollToPage(pageIndex) {
@@ -433,6 +465,9 @@
         });
         updateActiveIndicators(pageIndex);
         currentPage = pageIndex;
+        
+        // Manejar auto-slider de recursos
+        handlePageChange();
         
         // Activar animaciones de la página
         setTimeout(() => {
@@ -827,39 +862,85 @@
       }, 800);
     }
 
-    function expandDiagram(element, type) {
-      const overlay = document.getElementById('diagramOverlay');
-      overlay.classList.add('active');
-      element.classList.add('expanded');
+    // Funciones para el slider de recursos - SIMPLE
+    function changeResourceSlide(direction) {
+      const slides = document.querySelectorAll('.resource-slide');
+      const dots = document.querySelectorAll('.resource-dot');
       
-      overlay.onclick = function() {
-        closeDiagram(element);
+      // Quitar activo del actual
+      slides[currentResourceSlide].classList.remove('active');
+      dots[currentResourceSlide].classList.remove('active');
+      
+      // Calcular nuevo slide
+      currentResourceSlide += direction;
+      
+      // Loop
+      if (currentResourceSlide >= totalResourceSlides) {
+        currentResourceSlide = 0;
+      } else if (currentResourceSlide < 0) {
+        currentResourceSlide = totalResourceSlides - 1;
       }
       
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          closeDiagram(element);
-        }
-      });
+      // Activar nuevo slide
+      slides[currentResourceSlide].classList.add('active');
+      dots[currentResourceSlide].classList.add('active');
     }
-
-    function closeDiagram(element) {
-      const overlay = document.getElementById('diagramOverlay');
-      overlay.classList.remove('active');
-      element.classList.remove('expanded');
-    }
-
-    // Detectar cuando el video termina
-    window.addEventListener('message', function(event) {
-      if (event.origin !== 'https://www.youtube.com') return;
+    
+    function goToResourceSlide(slideIndex) {
+      const slides = document.querySelectorAll('.resource-slide');
+      const dots = document.querySelectorAll('.resource-dot');
       
-      if (event.data && typeof event.data === 'string') {
-        const data = JSON.parse(event.data);
-        if (data.event === 'video-ended') {
-          closeVideo();
-        }
+      // Quitar activo del actual
+      slides[currentResourceSlide].classList.remove('active');
+      dots[currentResourceSlide].classList.remove('active');
+      
+      // Ir al slide
+      currentResourceSlide = slideIndex;
+      
+      // Activar nuevo slide
+      slides[currentResourceSlide].classList.add('active');
+      dots[currentResourceSlide].classList.add('active');
+    }
+
+    // Funciones para el sistema de paneles de recursos
+    function expandResource(element, type) {
+      // Simple - solo cambiar el slide actual
+      switch(type) {
+        case 'analysis':
+          showAnalysis();
+          break;
+        case 'infographic':
+          window.open('./res/Infografía.jpeg', '_blank');
+          break;
+        case 'documentation':
+          alert('Documentación próximamente');
+          break;
+        case 'prototype':
+          window.open('https://prototipo-chichavet.vercel.app', '_blank');
+          break;
       }
-    });
+    }
+
+    // Funciones para mostrar/ocultar análisis
+    function showAnalysis() {
+      document.getElementById('page-3').style.display = 'none';
+      document.getElementById('analysisSection').classList.remove('hidden');
+      document.getElementById('analysisSection').style.display = 'flex';
+    }
+
+    function closeAnalysis() {
+      document.getElementById('analysisSection').style.display = 'none';
+      document.getElementById('analysisSection').classList.add('hidden');
+      document.getElementById('page-3').style.display = 'flex';
+    }
+
+    function closeResourcePanel() {
+      // No need for panels anymore - simple approach
+    }
+
+    function closeExpandedResource() {
+      // No need for panels anymore - simple approach  
+    }
 
     // Mostrar feedback cuando se intenta navegar con video activo
     function showNavigationBlockedFeedback() {
@@ -871,6 +952,25 @@
         navigationBlocked.style.transform = 'translateY(-50%) scale(1)';
         navigationBlocked.style.background = 'rgba(255, 255, 255, 0.95)';
       }, 200);
+    }
+
+    // Funciones para mostrar/ocultar el overlay de diagramas
+    function showDiagramOverlay(imageUrl, title) {
+      const overlay = document.getElementById('diagramFullscreenOverlay');
+      const content = overlay.querySelector('.diagram-fullscreen-content');
+      const image = content.querySelector('#diagramFullscreenImage');
+      const titleElement = content.querySelector('#diagramFullscreenTitle');
+      
+      image.src = imageUrl;
+      titleElement.textContent = title;
+      
+      overlay.classList.remove('hidden');
+      overlay.classList.add('show');
+    }
+
+    function closeDiagramOverlay() {
+      const overlay = document.getElementById('diagramFullscreenOverlay');
+      overlay.classList.add('hidden');
     }
   </script>
 </body>
