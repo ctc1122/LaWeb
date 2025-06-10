@@ -14,7 +14,7 @@
     <div class="scroll-dot active" onclick="scrollToPage(0)" title="Inicio"></div>
     <div class="scroll-dot" onclick="scrollToPage(1)" title="Desarrolladores"></div>
     <div class="scroll-dot" onclick="scrollToPage(2)" title="Presentación"></div>
-    <div class="scroll-dot" onclick="scrollToPage(3)" title="Arquitectura"></div>
+    <div class="scroll-dot" onclick="scrollToPage(3)" title="Recursos"></div>
   </div>
 
   <!-- Indicador de navegación bloqueada -->
@@ -22,14 +22,6 @@
     Navegación bloqueada<br>
     <small>Cierra el video para continuar</small>
   </div>
-
-  <!-- Navegación superior -->
-  <nav class="page-nav-bar">
-    <button onclick="scrollToPage(0)" class="active">Inicio</button>
-    <button onclick="scrollToPage(1)">Equipo</button>
-    <button onclick="scrollToPage(2)">Presentación</button>
-    <button onclick="scrollToPage(3)">Recursos</button>
-  </nav>
 
   <!-- Container principal con efecto sticky -->
   <div class="relative">
@@ -371,7 +363,14 @@
     const totalPages = 4;
     let videoPlaying = false;
     
-    // Función para scroll a página específica
+    // Variables del carrusel
+    let currentCarouselSlide = 0;
+    const totalCarouselSlides = 2;
+
+    // Variables del slider de recursos
+    let currentResourceSlide = 0;
+    const totalResourceSlides = 2;
+    
     function scrollToPage(pageIndex) {
       if (videoPlaying) {
         showNavigationBlockedFeedback();
@@ -381,28 +380,36 @@
       const page = document.getElementById(`page-${pageIndex}`);
       if (!page) return;
 
-      page.scrollIntoView({ behavior: 'smooth' });
-      updateActiveIndicators(pageIndex);
+      const offset = page.offsetTop;
+      window.scrollTo({
+        top: offset,
+        behavior: 'smooth'
+      });
+
       currentPage = pageIndex;
+      updateActiveIndicators(pageIndex);
     }
 
-    // Detectar cambios de página al hacer scroll
-    const container = document.querySelector('.relative');
-    let isScrolling = false;
+    function updateActiveIndicators(activeIndex) {
+      document.querySelectorAll('.scroll-dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index === activeIndex);
+      });
+    }
 
-    container.addEventListener('scroll', () => {
-      if (isScrolling) return;
-      
+    // Detectar scroll y actualizar indicadores
+    window.addEventListener('scroll', () => {
+      if (videoPlaying) return;
+
+      const viewportHeight = window.innerHeight;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
       const pages = document.querySelectorAll('.page-section');
-      const containerTop = container.scrollTop;
-      const windowHeight = window.innerHeight;
-      
       pages.forEach((page, index) => {
         const pageTop = page.offsetTop;
         const pageHeight = page.offsetHeight;
-        
-        if (containerTop >= pageTop - windowHeight / 2 && 
-            containerTop < pageTop + pageHeight - windowHeight / 2) {
+
+        if (scrollTop >= pageTop - viewportHeight/2 && 
+            scrollTop < pageTop + pageHeight - viewportHeight/2) {
           if (currentPage !== index) {
             currentPage = index;
             updateActiveIndicators(index);
@@ -411,89 +418,84 @@
       });
     });
 
-    // Control de scroll con rueda del mouse
-    container.addEventListener('wheel', (e) => {
-      if (videoPlaying) {
-        e.preventDefault();
-        showNavigationBlockedFeedback();
-        return;
+    // Funciones del carrusel
+    function changeCarouselSlide(direction) {
+      const slides = document.querySelectorAll('.carousel-slide');
+      const dots = document.querySelectorAll('.carousel-dot');
+      
+      slides[currentCarouselSlide].classList.remove('active');
+      dots[currentCarouselSlide].classList.remove('active');
+      
+      currentCarouselSlide += direction;
+      
+      if (currentCarouselSlide >= totalCarouselSlides) {
+        currentCarouselSlide = 0;
+      } else if (currentCarouselSlide < 0) {
+        currentCarouselSlide = totalCarouselSlides - 1;
       }
-
-      if (isScrolling) return;
-
-      const direction = e.deltaY > 0 ? 1 : -1;
-      const targetPage = Math.min(Math.max(currentPage + direction, 0), totalPages - 1);
-
-      if (targetPage !== currentPage) {
-        isScrolling = true;
-        scrollToPage(targetPage);
+      
+      slides[currentCarouselSlide].classList.add('active');
+      dots[currentCarouselSlide].classList.add('active');
+    }
+    
+    function goToCarouselSlide(slideIndex) {
+      const direction = slideIndex > currentCarouselSlide ? 1 : -1;
+      const steps = Math.abs(slideIndex - currentCarouselSlide);
+      
+      for (let i = 0; i < steps; i++) {
         setTimeout(() => {
-          isScrolling = false;
-        }, 1000);
+          changeCarouselSlide(direction);
+        }, i * 100);
       }
-    }, { passive: false });
-
-    // Actualizar indicadores activos
-    function updateActiveIndicators(activeIndex) {
-      // Actualizar dots laterales
-      const dots = document.querySelectorAll('.scroll-dot');
-      dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === activeIndex);
-      });
-
-      // Actualizar botones de navegación
-      const navButtons = document.querySelectorAll('.page-nav-bar button');
-      navButtons.forEach((button, index) => {
-        button.classList.toggle('active', index === activeIndex);
-      });
     }
 
-    // Control con teclado
-    document.addEventListener('keydown', (e) => {
-      if (videoPlaying) {
-        if (e.key === 'Escape') {
-          closeVideo();
-        }
-        return;
+    // Funciones del slider de recursos
+    function changeResourceSlide(direction) {
+      const slides = document.querySelectorAll('.resource-slide');
+      const dots = document.querySelectorAll('.resource-dot');
+      
+      slides[currentResourceSlide].classList.remove('active');
+      dots[currentResourceSlide].classList.remove('active');
+      
+      currentResourceSlide += direction;
+      
+      if (currentResourceSlide >= totalResourceSlides) {
+        currentResourceSlide = 0;
+      } else if (currentResourceSlide < 0) {
+        currentResourceSlide = totalResourceSlides - 1;
       }
-
-      switch(e.key) {
-        case 'ArrowDown':
-        case 'PageDown':
-          e.preventDefault();
-          if (currentPage < totalPages - 1) {
-            scrollToPage(currentPage + 1);
-          }
-          break;
-        case 'ArrowUp':
-        case 'PageUp':
-          e.preventDefault();
-          if (currentPage > 0) {
-            scrollToPage(currentPage - 1);
-          }
-          break;
-        case 'Home':
-          e.preventDefault();
-          scrollToPage(0);
-          break;
-        case 'End':
-          e.preventDefault();
-          scrollToPage(totalPages - 1);
-          break;
-      }
-    });
+      
+      slides[currentResourceSlide].classList.add('active');
+      dots[currentResourceSlide].classList.add('active');
+    }
+    
+    function goToResourceSlide(slideIndex) {
+      const slides = document.querySelectorAll('.resource-slide');
+      const dots = document.querySelectorAll('.resource-dot');
+      
+      slides[currentResourceSlide].classList.remove('active');
+      dots[currentResourceSlide].classList.remove('active');
+      
+      currentResourceSlide = slideIndex;
+      
+      slides[currentResourceSlide].classList.add('active');
+      dots[currentResourceSlide].classList.add('active');
+    }
 
     // Inicialización
     document.addEventListener('DOMContentLoaded', () => {
-      // Asegurarse de que empezamos en la primera página
-      container.scrollTo(0, 0);
-      currentPage = 0;
+      window.scrollTo(0, 0);
       updateActiveIndicators(0);
 
-      // Inicializar el primer slide del carrusel si existe
+      // Inicializar slides
       const firstCarouselSlide = document.querySelector('.carousel-slide');
       if (firstCarouselSlide) {
         firstCarouselSlide.classList.add('active');
+      }
+
+      const firstResourceSlide = document.querySelector('.resource-slide');
+      if (firstResourceSlide) {
+        firstResourceSlide.classList.add('active');
       }
     });
 
@@ -562,46 +564,6 @@
           videoTimer = null;
         }
       }, 800);
-    }
-
-    // Funciones para el slider de recursos - SIMPLE
-    function changeResourceSlide(direction) {
-      const slides = document.querySelectorAll('.resource-slide');
-      const dots = document.querySelectorAll('.resource-dot');
-      
-      // Quitar activo del actual
-      slides[currentResourceSlide].classList.remove('active');
-      dots[currentResourceSlide].classList.remove('active');
-      
-      // Calcular nuevo slide
-      currentResourceSlide += direction;
-      
-      // Loop
-      if (currentResourceSlide >= totalResourceSlides) {
-        currentResourceSlide = 0;
-      } else if (currentResourceSlide < 0) {
-        currentResourceSlide = totalResourceSlides - 1;
-      }
-      
-      // Activar nuevo slide
-      slides[currentResourceSlide].classList.add('active');
-      dots[currentResourceSlide].classList.add('active');
-    }
-    
-    function goToResourceSlide(slideIndex) {
-      const slides = document.querySelectorAll('.resource-slide');
-      const dots = document.querySelectorAll('.resource-dot');
-      
-      // Quitar activo del actual
-      slides[currentResourceSlide].classList.remove('active');
-      dots[currentResourceSlide].classList.remove('active');
-      
-      // Ir al slide
-      currentResourceSlide = slideIndex;
-      
-      // Activar nuevo slide
-      slides[currentResourceSlide].classList.add('active');
-      dots[currentResourceSlide].classList.add('active');
     }
 
     // Funciones para el sistema de paneles de recursos
@@ -713,62 +675,6 @@
       if (scrollMonitor) {
         clearInterval(scrollMonitor);
         scrollMonitor = null;
-      }
-    }
-
-    // Funciones del carrusel
-    function changeCarouselSlide(direction) {
-      const slides = document.querySelectorAll('.carousel-slide');
-      const carouselSlides = document.querySelector('.carousel-slides');
-      const dots = document.querySelectorAll('.carousel-dot');
-      
-      // Remover clases activas
-      slides[currentCarouselSlide].classList.remove('active');
-      dots[currentCarouselSlide].classList.remove('active');
-      
-      // Calcular nuevo slide
-      currentCarouselSlide += direction;
-      
-      // Wrap around
-      if (currentCarouselSlide >= totalCarouselSlides) {
-        currentCarouselSlide = 0;
-      } else if (currentCarouselSlide < 0) {
-        currentCarouselSlide = totalCarouselSlides - 1;
-      }
-      
-      // Aplicar transformación con animación suave
-      const translateX = -currentCarouselSlide * 50;
-      carouselSlides.style.transform = `translateX(${translateX}%)`;
-      
-      // Añadir animaciones de entrada siguiendo el patrón TikTok
-      setTimeout(() => {
-        slides[currentCarouselSlide].classList.add('active');
-        dots[currentCarouselSlide].classList.add('active');
-        
-        // Animación de entrada según dirección
-        if (direction > 0) {
-          slides[currentCarouselSlide].classList.add('slide-in-right');
-        } else {
-          slides[currentCarouselSlide].classList.add('slide-in-left');
-        }
-        
-        // Limpiar clases de animación después
-        setTimeout(() => {
-          slides.forEach(slide => {
-            slide.classList.remove('slide-in-right', 'slide-in-left');
-          });
-        }, 800);
-      }, 100);
-    }
-    
-    function goToCarouselSlide(slideIndex) {
-      const direction = slideIndex > currentCarouselSlide ? 1 : -1;
-      const steps = Math.abs(slideIndex - currentCarouselSlide);
-      
-      for (let i = 0; i < steps; i++) {
-        setTimeout(() => {
-          changeCarouselSlide(direction);
-        }, i * 100);
       }
     }
   </script>
