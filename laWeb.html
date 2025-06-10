@@ -67,11 +67,7 @@
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
             allowfullscreen>
           </iframe>
-          <div class="video-overlay" id="videoOverlay">
-            <button class="video-close-btn" onclick="closeVideo()">
-              Cerrar Video
-            </button>
-          </div>
+          <button class="video-close-btn" onclick="closeVideo()">✕</button>
         </div>
       </div>
     </section>
@@ -499,7 +495,7 @@
       }
     });
 
-    // Funciones existentes del video
+    // Funciones del video
     function toggleVideo() {
       const videoSection = document.getElementById('videoSection');
       const videoIframe = document.getElementById('videoIframe');
@@ -515,24 +511,13 @@
         videoIframe.src = videoUrl;
         
         setTimeout(() => {
-          // Activar modo video y deshabilitar navegación
           heroPage.classList.add('video-active');
           videoSection.classList.add('expanded');
           discoverBtn.classList.add('video-mode');
           discoverBtn.classList.remove('loading');
           discoverText.textContent = 'Cerrar Video';
           videoPlaying = true;
-          
-          // Deshabilitar navegación y iniciar monitoreo
-          toggleNavigation(true);
-          startScrollMonitoring();
-          
-          // Auto-cerrar después de 3 minutos
-          videoTimer = setTimeout(() => {
-            closeVideo();
-          }, 180000);
         }, 500);
-        
       } else {
         closeVideo();
       }
@@ -545,25 +530,15 @@
       const discoverText = document.getElementById('discoverText');
       const heroPage = document.getElementById('page-0');
       
-      // Desactivar modo video y habilitar navegación
       heroPage.classList.remove('video-active');
       videoSection.classList.remove('expanded');
       discoverBtn.classList.remove('video-mode');
-      
-      // Habilitar navegación y detener monitoreo
-      toggleNavigation(false);
-      stopScrollMonitoring();
+      videoPlaying = false;
       
       setTimeout(() => {
         videoIframe.src = '';
-        videoPlaying = false;
         discoverText.textContent = 'Descubre la App';
-        
-        if (videoTimer) {
-          clearTimeout(videoTimer);
-          videoTimer = null;
-        }
-      }, 800);
+      }, 300);
     }
 
     // Funciones para el sistema de paneles de recursos
