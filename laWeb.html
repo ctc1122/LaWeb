@@ -23,20 +23,20 @@
     <small>Cierra el video para continuar</small>
   </div>
 
-  <!-- Navegación entre páginas -->
-  <div class="page-nav">
-    <button class="page-nav-btn active" onclick="scrollToPage(0)">Inicio</button>
-    <button class="page-nav-btn" onclick="scrollToPage(1)">Equipo</button>
-    <button class="page-nav-btn" onclick="scrollToPage(2)">Presentación</button>
-    <button class="page-nav-btn" onclick="scrollToPage(3)">Recursos</button>
-  </div>
+  <!-- Navegación superior -->
+  <nav class="page-nav-bar">
+    <button onclick="scrollToPage(0)" class="active">Inicio</button>
+    <button onclick="scrollToPage(1)">Equipo</button>
+    <button onclick="scrollToPage(2)">Presentación</button>
+    <button onclick="scrollToPage(3)">Recursos</button>
+  </nav>
 
   <!-- Container principal con efecto sticky -->
   <div class="relative">
     <!-- PÁGINA 1: Hero Section -->
     <section class="sticky top-0 h-screen page-section hero-page" id="page-0">
-      <div class="container px-4 md:px-12 h-full flex items-center justify-center">
-        <div class="hero-content text-center">
+      <div class="container">
+        <div class="hero-content">
           <div class="fade-in-up inline-block px-6 py-2 rounded-full bg-white border border-gray-300 text-sm font-medium mb-8">
             <span class="text-gray-600">Trabajo Final de Grado</span>
           </div>
@@ -86,7 +86,7 @@
 
     <!-- PÁGINA 2: Carrusel de Equipo y Motivación -->
     <section class="sticky top-0 h-screen page-section carousel-page" id="page-1">
-      <div class="carousel-container h-full">
+      <div class="carousel-container">
         <!-- Flechas de navegación del carrusel -->
         <button class="carousel-arrow carousel-arrow-left" onclick="changeCarouselSlide(-1)">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -235,7 +235,7 @@
 
     <!-- PÁGINA 3: Presentación TFC -->
     <section class="sticky top-0 h-screen page-section presentation-page" id="page-2">
-      <div class="container px-4 md:px-12 h-full flex flex-col justify-center">
+      <div class="container">
         <div class="text-center mb-8">
           <h2 class="fade-in-up section-title text-3xl md:text-4xl font-bold mb-4 title-font text-gray-800">
             Presentación del <span class="gradient-text">Proyecto</span>
@@ -260,10 +260,9 @@
       </div>
     </section>
 
-    <!-- PÁGINA 4: Recursos Expandibles -->
+    <!-- PÁGINA 4: Recursos -->
     <section class="sticky top-0 h-screen page-section resources-page" id="page-3">
-      <div class="resources-container h-full">
-        <!-- Sección izquierda con información -->
+      <div class="resources-container">
         <div class="resources-left">
           <div class="resources-content">
             <p class="resources-discover">DESCUBRE</p>
@@ -275,7 +274,6 @@
           </div>
         </div>
 
-        <!-- Sección derecha con carrusel -->
         <div class="resources-right">
           <div class="resources-slider">
             <!-- Slide 1: Análisis y Diagramas -->
@@ -297,34 +295,12 @@
                 <button class="resource-explore-btn" onclick="expandResource(this, 'infographic')">EXPLORAR</button>
               </div>
             </div>
-
-            <!-- Slide 3: Documentación -->
-            <div class="resource-slide" data-type="documentation">
-              <div class="resource-slide-bg documentation-bg"></div>
-              <div class="resource-slide-content">
-                <h3 class="resource-title">DOCUMENTACIÓN</h3>
-                <p class="resource-subtitle">Manuales y guías técnicas</p>
-                <button class="resource-explore-btn" onclick="expandResource(this, 'documentation')">EXPLORAR</button>
-              </div>
-            </div>
-
-            <!-- Slide 4: Prototipo -->
-            <div class="resource-slide" data-type="prototype">
-              <div class="resource-slide-bg prototype-bg"></div>
-              <div class="resource-slide-content">
-                <h3 class="resource-title">PROTOTIPO</h3>
-                <p class="resource-subtitle">Demo interactivo de la aplicación</p>
-                <button class="resource-explore-btn" onclick="expandResource(this, 'prototype')">EXPLORAR</button>
-              </div>
-            </div>
           </div>
 
           <!-- Indicadores del slider -->
           <div class="resources-indicators">
             <div class="resource-dot active" onclick="goToResourceSlide(0)"></div>
             <div class="resource-dot" onclick="goToResourceSlide(1)"></div>
-            <div class="resource-dot" onclick="goToResourceSlide(2)"></div>
-            <div class="resource-dot" onclick="goToResourceSlide(3)"></div>
           </div>
 
           <!-- Controles del slider -->
@@ -354,40 +330,28 @@
       <p>Diagramas y arquitectura técnica del proyecto</p>
       
       <div class="diagrams-simple-grid">
-        <div class="diagram-simple-card" onclick="showDiagramOverlay('./res/diagramas/gestion-pacientes.png', 'Gestión de Pacientes')">
-          <img src="./res/diagramas/gestion-pacientes.png" alt="Gestión de Pacientes">
-          <h3>Gestión de Pacientes</h3>
-          <p>Sistema completo de registro y seguimiento</p>
+        <div class="diagram-simple-card" onclick="showDiagramOverlay('./res/diagramas/2.jpeg', 'Diagrama DFD')">
+          <img src="./res/diagramas/2.jpeg" alt="Diagrama DFD">
+          <h3>Diagrama DFD</h3>
+          <p>Diagrama de flujo de datos del sistema</p>
         </div>
         
-        <div class="diagram-simple-card" onclick="showDiagramOverlay('./res/diagramas/sistema-citas.png', 'Sistema de Citas')">
-          <img src="./res/diagramas/sistema-citas.png" alt="Sistema de Citas">
-          <h3>Sistema de Citas</h3>
-          <p>Gestión y programación de citas veterinarias</p>
+        <div class="diagram-simple-card" onclick="showDiagramOverlay('./res/diagramas/DiagramaDeComponentes.jpeg', 'Diagrama de componentes')">
+          <img src="./res/diagramas/DiagramaDeComponentes.jpeg" alt="Diagrama de componentes">
+          <h3>Diagrama de componentes</h3>
+          <p>Diagrama de componentes del sistema</p>
         </div>
         
-        <div class="diagram-simple-card" onclick="showDiagramOverlay('./res/diagramas/control-inventario.png', 'Control de Inventario')">
-          <img src="./res/diagramas/control-inventario.png" alt="Control de Inventario">
-          <h3>Control de Inventario</h3>
-          <p>Administración de medicamentos y suministros</p>
-        </div>
-        
-        <div class="diagram-simple-card" onclick="showDiagramOverlay('./res/diagramas/sistema-facturacion.png', 'Sistema de Facturación')">
-          <img src="./res/diagramas/sistema-facturacion.png" alt="Sistema de Facturación">
-          <h3>Sistema de Facturación</h3>
-          <p>Generación y gestión de facturas</p>
+        <div class="diagram-simple-card" onclick="showDiagramOverlay('./res/diagramas/DiagramaDeSecuencia.jpg', 'Diagrama de secuencia')">
+          <img src="./res/diagramas/DiagramaDeSecuencia.jpg" alt="Diagrama de secuencia">
+          <h3>Diagrama de secuencia</h3>
+          <p>Diagrama de secuencia del sistema</p>
         </div>
         
         <div class="diagram-simple-card" onclick="showDiagramOverlay('./res/diagramas/Diagrama_E-R.png', 'Diagrama E-R')">
           <img src="./res/diagramas/Diagrama_E-R.png" alt="Diagrama E-R">
           <h3>Diagrama E-R</h3>
           <p>Estructura y relaciones de la base de datos</p>
-        </div>
-        
-        <div class="diagram-simple-card" onclick="showDiagramOverlay('./res/diagramas/arquitectura-datos.png', 'Arquitectura del Sistema')">
-          <img src="./res/diagramas/arquitectura-datos.png" alt="Arquitectura">
-          <h3>Arquitectura del Sistema</h3>
-          <p>Diseño arquitectónico completo</p>
         </div>
       </div>
     </div>
@@ -403,209 +367,101 @@
   </div>
 
   <script>
-    let videoPlaying = false;
-    let videoTimer = null;
     let currentPage = 0;
     const totalPages = 4;
+    let videoPlaying = false;
     
-    // Variables del carrusel
-    let currentCarouselSlide = 0;
-    const totalCarouselSlides = 2;
-
-    // Variables del slider de recursos
-    let currentResourceSlide = 0;
-    const totalResourceSlides = 4;
-
-    // Auto-slider para recursos (opcional)
-    let resourceAutoSlider;
-    
-    function startResourceAutoSlider() {
-      resourceAutoSlider = setInterval(() => {
-        if (currentPage === 3 && !document.querySelector('.resource-slide.expanding')) {
-          changeResourceSlide(1);
-        }
-      }, 5000);
-    }
-    
-    function stopResourceAutoSlider() {
-      if (resourceAutoSlider) {
-        clearInterval(resourceAutoSlider);
-        resourceAutoSlider = null;
-      }
-    }
-    
-    // Iniciar auto-slider cuando se está en la página 4
-    function handlePageChange() {
-      if (currentPage === 3) {
-        startResourceAutoSlider();
-      } else {
-        stopResourceAutoSlider();
-      }
-    }
-
-    // Función para scroll a página específica con feedback
+    // Función para scroll a página específica
     function scrollToPage(pageIndex) {
-      // Bloquear navegación si el video está reproduciéndose
       if (videoPlaying) {
-        // Mostrar feedback visual
         showNavigationBlockedFeedback();
         return;
       }
-      
-      // Si estamos saliendo de la página 2 (carrusel) o entrando a ella, resetear carrusel
-      if (currentPage === 1 || pageIndex === 1) {
-        resetCarouselToFirstSlide();
-      }
-      
+
       const page = document.getElementById(`page-${pageIndex}`);
-      if (page) {
-        page.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        });
-        updateActiveIndicators(pageIndex);
-        currentPage = pageIndex;
-        
-        // Manejar auto-slider de recursos
-        handlePageChange();
-        
-        // Activar animaciones de la página
-        setTimeout(() => {
-          page.classList.add('in-view');
-        }, 300);
-      }
+      if (!page) return;
+
+      page.scrollIntoView({ behavior: 'smooth' });
+      updateActiveIndicators(pageIndex);
+      currentPage = pageIndex;
     }
 
-    // Función para resetear el carrusel al primer slide
-    function resetCarouselToFirstSlide() {
-      if (currentCarouselSlide !== 0) {
-        const slides = document.querySelectorAll('.carousel-slide');
-        const carouselSlides = document.querySelector('.carousel-slides');
-        const dots = document.querySelectorAll('.carousel-dot');
+    // Detectar cambios de página al hacer scroll
+    const container = document.querySelector('.relative');
+    let isScrolling = false;
+
+    container.addEventListener('scroll', () => {
+      if (isScrolling) return;
+      
+      const pages = document.querySelectorAll('.page-section');
+      const containerTop = container.scrollTop;
+      const windowHeight = window.innerHeight;
+      
+      pages.forEach((page, index) => {
+        const pageTop = page.offsetTop;
+        const pageHeight = page.offsetHeight;
         
-        // Remover clases activas del slide actual
-        if (slides[currentCarouselSlide]) {
-          slides[currentCarouselSlide].classList.remove('active');
+        if (containerTop >= pageTop - windowHeight / 2 && 
+            containerTop < pageTop + pageHeight - windowHeight / 2) {
+          if (currentPage !== index) {
+            currentPage = index;
+            updateActiveIndicators(index);
+          }
         }
-        if (dots[currentCarouselSlide]) {
-          dots[currentCarouselSlide].classList.remove('active');
-        }
-        
-        // Resetear al primer slide
-        currentCarouselSlide = 0;
-        
-        // Aplicar transformación instantánea (sin animación para que sea imperceptible)
-        if (carouselSlides) {
-          carouselSlides.style.transition = 'none';
-          carouselSlides.style.transform = 'translateX(0%)';
-          
-          // Restaurar la transición después de un frame
-          setTimeout(() => {
-            carouselSlides.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-          }, 50);
-        }
-        
-        // Activar el primer slide y dot
-        if (slides[0]) {
-          slides[0].classList.add('active');
-        }
-        if (dots[0]) {
-          dots[0].classList.add('active');
-        }
+      });
+    });
+
+    // Control de scroll con rueda del mouse
+    container.addEventListener('wheel', (e) => {
+      if (videoPlaying) {
+        e.preventDefault();
+        showNavigationBlockedFeedback();
+        return;
       }
+
+      if (isScrolling) return;
+
+      const direction = e.deltaY > 0 ? 1 : -1;
+      const targetPage = Math.min(Math.max(currentPage + direction, 0), totalPages - 1);
+
+      if (targetPage !== currentPage) {
+        isScrolling = true;
+        scrollToPage(targetPage);
+        setTimeout(() => {
+          isScrolling = false;
+        }, 1000);
+      }
+    }, { passive: false });
+
+    // Actualizar indicadores activos
+    function updateActiveIndicators(activeIndex) {
+      // Actualizar dots laterales
+      const dots = document.querySelectorAll('.scroll-dot');
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === activeIndex);
+      });
+
+      // Actualizar botones de navegación
+      const navButtons = document.querySelectorAll('.page-nav-bar button');
+      navButtons.forEach((button, index) => {
+        button.classList.toggle('active', index === activeIndex);
+      });
     }
 
-    // Funciones del carrusel
-    function changeCarouselSlide(direction) {
-      const slides = document.querySelectorAll('.carousel-slide');
-      const carouselSlides = document.querySelector('.carousel-slides');
-      const dots = document.querySelectorAll('.carousel-dot');
-      
-      // Remover clases activas
-      slides[currentCarouselSlide].classList.remove('active');
-      dots[currentCarouselSlide].classList.remove('active');
-      
-      // Calcular nuevo slide
-      currentCarouselSlide += direction;
-      
-      // Wrap around
-      if (currentCarouselSlide >= totalCarouselSlides) {
-        currentCarouselSlide = 0;
-      } else if (currentCarouselSlide < 0) {
-        currentCarouselSlide = totalCarouselSlides - 1;
-      }
-      
-      // Aplicar transformación con animación suave
-      const translateX = -currentCarouselSlide * 50;
-      carouselSlides.style.transform = `translateX(${translateX}%)`;
-      
-      // Añadir animaciones de entrada siguiendo el patrón TikTok
-      setTimeout(() => {
-        slides[currentCarouselSlide].classList.add('active');
-        dots[currentCarouselSlide].classList.add('active');
-        
-        // Animación de entrada según dirección
-        if (direction > 0) {
-          slides[currentCarouselSlide].classList.add('slide-in-right');
-        } else {
-          slides[currentCarouselSlide].classList.add('slide-in-left');
-        }
-        
-        // Limpiar clases de animación después
-        setTimeout(() => {
-          slides.forEach(slide => {
-            slide.classList.remove('slide-in-right', 'slide-in-left');
-          });
-        }, 800);
-      }, 100);
-    }
-    
-    function goToCarouselSlide(slideIndex) {
-      const direction = slideIndex > currentCarouselSlide ? 1 : -1;
-      const steps = Math.abs(slideIndex - currentCarouselSlide);
-      
-      for (let i = 0; i < steps; i++) {
-        setTimeout(() => {
-          changeCarouselSlide(direction);
-        }, i * 100);
-      }
-    }
-
-    // Control del carrusel con teclado (solo cuando estamos en la página 2)
+    // Control con teclado
     document.addEventListener('keydown', (e) => {
-      // Si el video está reproduciéndose, solo permitir Escape para cerrarlo
       if (videoPlaying) {
         if (e.key === 'Escape') {
-          e.preventDefault();
           closeVideo();
         }
         return;
       }
-      
-      // Si estamos en la página 2 (carrusel), permitir navegación lateral
-      if (currentPage === 1) {
-        switch(e.key) {
-          case 'ArrowLeft':
-            e.preventDefault();
-            changeCarouselSlide(-1);
-            break;
-          case 'ArrowRight':
-            e.preventDefault();
-            changeCarouselSlide(1);
-            break;
-        }
-      }
-      
-      // Controles normales de navegación entre páginas
+
       switch(e.key) {
         case 'ArrowDown':
         case 'PageDown':
           e.preventDefault();
           if (currentPage < totalPages - 1) {
-            // Si estamos saliendo de la página 2 o yendo a ella, resetear carrusel
-            if (currentPage === 1 || currentPage + 1 === 1) {
-              resetCarouselToFirstSlide();
-            }
             scrollToPage(currentPage + 1);
           }
           break;
@@ -613,187 +469,33 @@
         case 'PageUp':
           e.preventDefault();
           if (currentPage > 0) {
-            // Si estamos saliendo de la página 2 o yendo a ella, resetear carrusel
-            if (currentPage === 1 || currentPage - 1 === 1) {
-              resetCarouselToFirstSlide();
-            }
             scrollToPage(currentPage - 1);
           }
           break;
         case 'Home':
           e.preventDefault();
-          // Si estamos en la página 2, resetear carrusel antes de ir al inicio
-          if (currentPage === 1) {
-            resetCarouselToFirstSlide();
-          }
           scrollToPage(0);
           break;
         case 'End':
           e.preventDefault();
-          // Si estamos en la página 2, resetear carrusel antes de ir al final
-          if (currentPage === 1) {
-            resetCarouselToFirstSlide();
-          }
           scrollToPage(totalPages - 1);
           break;
       }
     });
 
-    // Actualizar indicadores activos
-    function updateActiveIndicators(activeIndex) {
-      // Actualizar dots
-      const dots = document.querySelectorAll('.scroll-dot');
-      dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === activeIndex);
-      });
-      
-      // Actualizar botones de navegación
-      const navBtns = document.querySelectorAll('.page-nav-btn');
-      navBtns.forEach((btn, index) => {
-        btn.classList.toggle('active', index === activeIndex);
-      });
-    }
-
-    // Detectar scroll y actualizar indicadores
-    let isScrolling = false;
-    window.addEventListener('scroll', (e) => {
-      // Bloquear completamente el scroll si el video está reproduciéndose
-      if (videoPlaying) {
-        e.preventDefault();
-        e.stopPropagation();
-        // Mantener la posición actual en la primera página
-        window.scrollTo(0, document.getElementById('page-0').offsetTop);
-        showNavigationBlockedFeedback();
-        return false;
-      }
-      
-      if (isScrolling) return;
-      
-      const pages = document.querySelectorAll('.page-section');
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
-      
-      pages.forEach((page, index) => {
-        const pageTop = page.offsetTop;
-        const pageBottom = pageTop + page.offsetHeight;
-        
-        if (scrollPosition >= pageTop && scrollPosition < pageBottom) {
-          if (currentPage !== index) {
-            // Si estamos cambiando de página y la página anterior o nueva es la 2 (carrusel), resetear
-            if (currentPage === 1 || index === 1) {
-              resetCarouselToFirstSlide();
-            }
-            
-            updateActiveIndicators(index);
-            currentPage = index;
-            
-            // Activar animaciones
-            page.classList.add('in-view');
-          }
-        }
-      });
-    });
-
-    // Control de scroll con rueda del mouse
-    let scrollTimeout;
-    window.addEventListener('wheel', (e) => {
-      // Bloquear completamente el scroll si el video está reproduciéndose
-      if (videoPlaying) {
-        e.preventDefault();
-        e.stopPropagation();
-        showNavigationBlockedFeedback();
-        return false;
-      }
-      
-      e.preventDefault();
-      
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        if (e.deltaY > 0 && currentPage < totalPages - 1) {
-          // Scroll hacia abajo
-          scrollToPage(currentPage + 1);
-        } else if (e.deltaY < 0 && currentPage > 0) {
-          // Scroll hacia arriba
-          scrollToPage(currentPage - 1);
-        }
-      }, 50);
-    }, { passive: false });
-
-    // Bloquear scroll táctil en dispositivos móviles
-    window.addEventListener('touchmove', (e) => {
-      if (videoPlaying) {
-        e.preventDefault();
-        e.stopPropagation();
-        showNavigationBlockedFeedback();
-        return false;
-      }
-    }, { passive: false });
-
-    // Inicializar animaciones en la primera página
+    // Inicialización
     document.addEventListener('DOMContentLoaded', () => {
-      const firstPage = document.getElementById('page-0');
-      firstPage.classList.add('in-view');
-      
-      // Inicializar el primer slide del carrusel
+      // Asegurarse de que empezamos en la primera página
+      container.scrollTo(0, 0);
+      currentPage = 0;
+      updateActiveIndicators(0);
+
+      // Inicializar el primer slide del carrusel si existe
       const firstCarouselSlide = document.querySelector('.carousel-slide');
       if (firstCarouselSlide) {
         firstCarouselSlide.classList.add('active');
       }
     });
-
-    // Función para habilitar/deshabilitar navegación
-    function toggleNavigation(disabled) {
-      const scrollIndicator = document.querySelector('.scroll-indicator');
-      const pageNav = document.querySelector('.page-nav');
-      const navigationBlocked = document.getElementById('navigationBlocked');
-      
-      if (disabled) {
-        scrollIndicator.classList.add('disabled');
-        pageNav.classList.add('disabled');
-        navigationBlocked.classList.add('show');
-        // Bloquear scroll del body
-        document.body.style.overflow = 'hidden';
-        document.documentElement.style.overflow = 'hidden';
-        // Forzar scroll a la primera página
-        forceScrollToFirstPage();
-      } else {
-        scrollIndicator.classList.remove('disabled');
-        pageNav.classList.remove('disabled');
-        navigationBlocked.classList.remove('show');
-        // Restaurar scroll del body
-        document.body.style.overflow = '';
-        document.documentElement.style.overflow = '';
-      }
-    }
-
-    // Forzar scroll a la primera página
-    function forceScrollToFirstPage() {
-      const firstPage = document.getElementById('page-0');
-      if (firstPage) {
-        window.scrollTo({
-          top: firstPage.offsetTop,
-          behavior: 'instant'
-        });
-        currentPage = 0;
-        updateActiveIndicators(0);
-      }
-    }
-
-    // Monitorear intentos de scroll cuando el video está activo
-    let scrollMonitor;
-    function startScrollMonitoring() {
-      scrollMonitor = setInterval(() => {
-        if (videoPlaying) {
-          forceScrollToFirstPage();
-        }
-      }, 100);
-    }
-
-    function stopScrollMonitoring() {
-      if (scrollMonitor) {
-        clearInterval(scrollMonitor);
-        scrollMonitor = null;
-      }
-    }
 
     // Funciones existentes del video
     function toggleVideo() {
@@ -912,12 +614,6 @@
         case 'infographic':
           window.open('./res/Infografía.jpeg', '_blank');
           break;
-        case 'documentation':
-          alert('Documentación próximamente');
-          break;
-        case 'prototype':
-          window.open('https://prototipo-chichavet.vercel.app', '_blank');
-          break;
       }
     }
 
@@ -932,14 +628,6 @@
       document.getElementById('analysisSection').style.display = 'none';
       document.getElementById('analysisSection').classList.add('hidden');
       document.getElementById('page-3').style.display = 'flex';
-    }
-
-    function closeResourcePanel() {
-      // No need for panels anymore - simple approach
-    }
-
-    function closeExpandedResource() {
-      // No need for panels anymore - simple approach  
     }
 
     // Mostrar feedback cuando se intenta navegar con video activo
@@ -971,6 +659,117 @@
     function closeDiagramOverlay() {
       const overlay = document.getElementById('diagramFullscreenOverlay');
       overlay.classList.add('hidden');
+    }
+
+    // Funciones para habilitar/deshabilitar navegación
+    function toggleNavigation(disabled) {
+      const scrollIndicator = document.querySelector('.scroll-indicator');
+      const pageNav = document.querySelector('.page-nav-bar');
+      const navigationBlocked = document.getElementById('navigationBlocked');
+      
+      if (disabled) {
+        scrollIndicator.classList.add('disabled');
+        pageNav.classList.add('disabled');
+        navigationBlocked.classList.add('show');
+        // Bloquear scroll del body
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+        // Forzar scroll a la primera página
+        forceScrollToFirstPage();
+      } else {
+        scrollIndicator.classList.remove('disabled');
+        pageNav.classList.remove('disabled');
+        navigationBlocked.classList.remove('show');
+        // Restaurar scroll del body
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+      }
+    }
+
+    // Forzar scroll a la primera página
+    function forceScrollToFirstPage() {
+      const firstPage = document.getElementById('page-0');
+      if (firstPage) {
+        window.scrollTo({
+          top: firstPage.offsetTop,
+          behavior: 'instant'
+        });
+        currentPage = 0;
+        updateActiveIndicators(0);
+      }
+    }
+
+    // Monitorear intentos de scroll cuando el video está activo
+    let scrollMonitor;
+    function startScrollMonitoring() {
+      scrollMonitor = setInterval(() => {
+        if (videoPlaying) {
+          forceScrollToFirstPage();
+        }
+      }, 100);
+    }
+
+    function stopScrollMonitoring() {
+      if (scrollMonitor) {
+        clearInterval(scrollMonitor);
+        scrollMonitor = null;
+      }
+    }
+
+    // Funciones del carrusel
+    function changeCarouselSlide(direction) {
+      const slides = document.querySelectorAll('.carousel-slide');
+      const carouselSlides = document.querySelector('.carousel-slides');
+      const dots = document.querySelectorAll('.carousel-dot');
+      
+      // Remover clases activas
+      slides[currentCarouselSlide].classList.remove('active');
+      dots[currentCarouselSlide].classList.remove('active');
+      
+      // Calcular nuevo slide
+      currentCarouselSlide += direction;
+      
+      // Wrap around
+      if (currentCarouselSlide >= totalCarouselSlides) {
+        currentCarouselSlide = 0;
+      } else if (currentCarouselSlide < 0) {
+        currentCarouselSlide = totalCarouselSlides - 1;
+      }
+      
+      // Aplicar transformación con animación suave
+      const translateX = -currentCarouselSlide * 50;
+      carouselSlides.style.transform = `translateX(${translateX}%)`;
+      
+      // Añadir animaciones de entrada siguiendo el patrón TikTok
+      setTimeout(() => {
+        slides[currentCarouselSlide].classList.add('active');
+        dots[currentCarouselSlide].classList.add('active');
+        
+        // Animación de entrada según dirección
+        if (direction > 0) {
+          slides[currentCarouselSlide].classList.add('slide-in-right');
+        } else {
+          slides[currentCarouselSlide].classList.add('slide-in-left');
+        }
+        
+        // Limpiar clases de animación después
+        setTimeout(() => {
+          slides.forEach(slide => {
+            slide.classList.remove('slide-in-right', 'slide-in-left');
+          });
+        }, 800);
+      }, 100);
+    }
+    
+    function goToCarouselSlide(slideIndex) {
+      const direction = slideIndex > currentCarouselSlide ? 1 : -1;
+      const steps = Math.abs(slideIndex - currentCarouselSlide);
+      
+      for (let i = 0; i < steps; i++) {
+        setTimeout(() => {
+          changeCarouselSlide(direction);
+        }, i * 100);
+      }
     }
   </script>
 </body>
